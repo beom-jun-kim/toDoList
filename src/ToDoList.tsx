@@ -18,7 +18,7 @@ function ToDoList() {
           {...register("toDo", {
             required: true,
           })}
-          placeholder="할 일을 적으시오"
+          placeholder="할 일을 적으시오."
         />
         <button>add</button>
       </form>
