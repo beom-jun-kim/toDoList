@@ -7,6 +7,18 @@ function ToDo({ text, category, id }: IToDo) {
     const {
       currentTarget: { name },
     } = event;
+    setToDos((oldToDos) => {
+
+      // findIndex() : 주어진 판별 함수를 만족하는 배열의 첫 번째 요소에 대한 인덱스를 반환.
+      // 만족하는 요소가 없으면 -1을 반환합니다.
+      const targetIndex = oldToDos.findIndex((toDO) => toDO.id === id);
+      const newToDo = { text, id, category: name as any};
+      return [
+        ...oldToDos.slice(0, targetIndex),
+        newToDo,
+        ...oldToDos.slice(targetIndex + 1),
+      ];
+    });
   };
   return (
     <li>
