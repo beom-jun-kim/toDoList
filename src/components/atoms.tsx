@@ -1,4 +1,7 @@
 import { atom, selector } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist();
 
 export enum Categories {
   "할일" = "할일",
@@ -17,6 +20,7 @@ export interface IToDo {
 export const toDoState = atom<IToDo[]>({
   key: "atomToDo",
   default: [],
+  effects_UNSTABLE:[persistAtom],
 });
 
 // 사용자가 현재 선택한 카테고리
