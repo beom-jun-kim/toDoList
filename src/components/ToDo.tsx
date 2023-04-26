@@ -1,3 +1,4 @@
+import React from "react";
 import { useSetRecoilState } from "recoil";
 import { IToDo, toDoState, Categories } from "../components/atoms";
 
@@ -19,13 +20,15 @@ function ToDo({ text, category, id }: IToDo) {
       ];
     });
   };
-  const delbtn = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const target = event.currentTarget.parentElement;
-  };
+  const delBtn = () => {
+    setToDos((oldToDos) => {
+      return oldToDos.filter((toDo) => toDo.id !== id);
+    });
+  }
   return (
     <li>
       <span>{text}</span>
-      <button onClick={delbtn}>x</button>
+      <button onClick={delBtn}>x</button>
       {category !== Categories.할일 && (
         <button name={Categories.할일} onClick={onClick}>
           할일
