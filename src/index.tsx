@@ -17,7 +17,3 @@ root.render(
     </RecoilRoot>
   </React.StrictMode>
 );
-
-// 코드 챌린지
-// 뒤로가기 (홈버튼) 버튼
-// price 컴포넌트 작성
