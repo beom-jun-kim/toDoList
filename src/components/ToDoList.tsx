@@ -1,35 +1,29 @@
-import { useRecoilValue } from "recoil";
-import { toDoState, toDoSelector } from "../components/atoms";
+import React from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { toDoSelector, categoryState } from "../components/atoms";
 import CreateToDo from "./CreateToDo";
-import ToDo from "./ToDo";
+import ToDo from "../components/ToDo";
 
 function ToDoList() {
-  // useRecoilState : useRecoilValue , useSetRecoilState 두개 합친거
-  // 첫번째는 value를 설정 , 두번째는 value 수정
-  const [toDo, done,doing] = useRecoilValue(toDoSelector);
+  const toDos = useRecoilValue(toDoSelector);
+
+  // useRecoilState : 1.현재의 값과 , 2.수정하는 값
+  const [category, setCategory] = useRecoilState(categoryState);
+  const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
+    setCategory(event.currentTarget.value);
+  };
   return (
     <div>
-      <h1>오늘의 할일</h1>
-      <hr />
+      <h1>투두리스트</h1>
+      <select value={category} onInput={onInput}>
+        <option value="할일">할일</option>
+        <option value="하고있는일">하고있는일</option>
+        <option value="한일">한일</option>
+      </select>
       <CreateToDo />
-      <h2>To Do</h2>
-      <ul>
-        {toDo.map((toDo) => (
-          <ToDo key={toDo.id} {...toDo} />
-        ))}
-      </ul>
-      <h2>Doing</h2>
-      <ul>
-        {doing.map((toDo) => (
-          <ToDo key={toDo.id} {...toDo} />
-        ))}
-      </ul>
-      <h2>Done</h2>
-      <ul>
-        {done.map((toDo) => (
-          <ToDo key={toDo.id} {...toDo} />
-        ))}
-      </ul>
+      {toDos?.map((toDo) => (
+        <ToDo key={toDo.id} {...toDo} />
+      ))}
     </div>
   );
 }
