@@ -1,9 +1,15 @@
 import { atom, selector } from "recoil";
 
+export enum Categories {
+  "할일" = "할일",
+  "하고있는일" = "하고있는일",
+  "한일" = "한일",
+}
+
 export interface IToDo {
   id: number;
   text: string;
-  category: "할일" | "하고있는일" | "한일" /* 3가지중 하나의 스트링만 */;
+  category: Categories /* 3가지중 하나의 스트링만 */;
 }
 
 // toDos가 IToDo 객체로 이뤄진 배열임을 알려줘야한다
@@ -14,9 +20,9 @@ export const toDoState = atom<IToDo[]>({
 });
 
 // 사용자가 현재 선택한 카테고리
-export const categoryState = atom({
+export const categoryState = atom<Categories>({
   key: "category",
-  default: "할일",
+  default: Categories.할일,
 });
 
 export const toDoSelector = selector({
